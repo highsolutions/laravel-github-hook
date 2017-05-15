@@ -1,0 +1,26 @@
+{
+    "name": "highsolutions/github-hook",
+    "description": "A Laravel package for simple Continuous Integration based on GitHub push.",
+    "keywords": ["laravel", "github", "continuous", "integration", "ci", "git", "hook"],
+    "authors": [
+        {
+            "name": "HighSolutions",
+            "email": "adam@highsolutions.pl"
+        }
+    ],
+    "license": "MIT",
+    "require": {
+        "php": ">=5.6.4",
+        "illuminate/support": "~5.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "HighSolutions\\GitHubHook\\": "src/"
+        }
+    },
+    "extra": {
+        "component": "package",
+        "frameworks": ["Laravel 5.4"]
+    },
+    "minimum-stability": "stable"
+}

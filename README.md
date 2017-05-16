@@ -57,8 +57,46 @@ and you can specify some essentials settings (in ENV and in config file called `
 | slack.channel     | Channel where Slack notification will be posted.                    | GITHUB_HOOK_SLACK_CHANNEL  |               |
 | slack.webhook_url | Slack webhook url. If empty, notification won't be send.            | GITHUB_HOOK_SLACK_URL      |               |
 
+No Laravel version
+------------------
+
+This package is also configured to work not within Laravel. We recommend:
+- Create `hook` folder 
+- Copy whole package to this folder
+- Create another file (e.g. `awesome_hook.php`) and paste in it:
+
+```php
+<?php
+
+require_once 'github-hook/src/Services/GitHubHookService.php';
+
+HighSolutions\GitHubHook\Services\GitHubHookService::simpleInit([
+    'secret' => null, // secret of webhook
+    'branch' => 'master', // branch name
+    'path' => '/home/pw/domains/pw.d2.pl/', // absolute path to the repo
+], $_POST['payload'], $_SERVER['x-hub-signature']);
+```
+
+Configure GitHub webhook to access this second file and voila!
+
+You can also upload only service file `github-hook/src/Services/GitHubHookService.php` and then you need to change path to:
+
+```php
+<?php
+
+require_once 'GitHubHookService.php';
+
+...
+```
+
 Changelog
 ---------
+
+0.2.0
+
+- no Laravel example
+- no edit flag in git push
+- support for ping request
 
 0.1.0
 
@@ -70,7 +108,6 @@ Changelog
 Roadmap
 -------
 
-* No Laravel alternative version
 * More hooks
 * Conditional hooks
 * Unit tests!

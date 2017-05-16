@@ -61,6 +61,12 @@ class GitHubHookService {
 	{
 		$this->payload = $this->decodePayload();
 
+		if($this->isPing())
+			return [
+				'success' => true,
+				'message' => 'Ping correct.'
+			];
+
 		if (!$this->isPayloadCorrect())
 			return $this->returnError('Incorrect payload.');
 
@@ -98,6 +104,11 @@ class GitHubHookService {
 		return false;
 	}
 
+	protected function isPing()
+	{
+		return $this->payload !== false && isset($this->payload->zen);
+	}
+
 	protected function isPayloadCorrect()
 	{
 		return $this->payload !== false && isset($this->payload->ref);
@@ -114,7 +125,7 @@ class GitHubHookService {
         $exit = 0;
         $branch = $this->config['branch'];
         $path = $this->config['path'];
-    	$cmd = 'git --git-dir='. escapeshellarg("{$path}/.git") .' --work-tree='. escapeshellarg($path) .' pull origin '. $this->config['branch'];
+    	$cmd = 'git --git-dir='. escapeshellarg("{$path}/.git") .' --work-tree='. escapeshellarg($path) .' pull origin '. $this->config['branch'] .' --no-edit';
 
     	$this->displayLog("Start deploying for branch '{$branch}'.");
 		exec($cmd, $output, $exit);
@@ -136,9 +147,16 @@ class GitHubHookService {
 		] + $additional;
 	}
 
-	protected function displayLog($message)
+	public function displayLog($message)
 	{
 		echo $message . PHP_EOL;
+	}	
+
+	public static function simpleInit($config, $payload, $xHubSignature)
+	{
+		$service = new static($config);
+		$response = $service->receive($payload, $xHubSignature);
+		$service->displayLog($response['message']);
 	}
 
 }

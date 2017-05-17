@@ -44,7 +44,8 @@ class GitHubHookController
 	private function displayResponse($response)
 	{
 		if($response['success']) {
-			event(new RequestSucceed($response['payload']));
+			$this->payload = $response['payload'];
+			event(new RequestSucceed($this->payload));
 			$this->displayLog($response['message']); 
 		} else {
 			event(new RequestFailed($response['message'], isset($response['payload']) ? $response['payload'] : false));
@@ -57,9 +58,11 @@ class GitHubHookController
         event(new BeforeHooks());
 
 		$commands = new GitHubHookCommands([
-			'migration' => config('github-hook.auto_migration'),
-			'seed' => config('github-hook.auto_seed'),
-		]);
+			'migration' => config('github-hook.hooks.migration'),
+			'seed' => config('github-hook.hooks.seed'),
+			'refresh' => config('github-hook.hooks.refresh'),
+			'composer' => config('github-hook.hooks.composer'),
+		], base_path());
 		$commands->handle($this->payload);
 
         event(new AfterHooks());

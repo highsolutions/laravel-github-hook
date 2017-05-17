@@ -14,8 +14,12 @@ return [
     
     'secret' => env('GITHUB_HOOK_SECRET', null),
 
-    'auto_migration' => env('GITHUB_HOOK_AUTO_MIGRATION', true),
-    'auto_seed' => env('GITHUB_HOOK_AUTO_SEED', false),
+    'hooks' => [
+        'migration' => env('GITHUB_HOOK_HOOK_MIGRATION', 'php artisan migrate --force'),
+        'seed' => env('GITHUB_HOOK_HOOK_SEED', 'php artisan db:seed --force'),
+        'refresh' => env('GITHUB_HOOK_HOOK_REFRESH', 'php artisan migrate:refresh --seed --force'),
+        'composer' => env('GITHUB_HOOK_HOOK_COMPOSER', 'composer update --no-scripts'),
+    ],
 
     'slack' => [
         'sender' => env('GITHUB_HOOK_SLACK_SENDER', 'GitHub Hook'),

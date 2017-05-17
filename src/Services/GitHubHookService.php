@@ -2,6 +2,8 @@
 
 namespace HighSolutions\GitHubHook\Services;
 
+use HighSolutions\GitHubHook\Services\GitHubHookCommands;
+
 class GitHubHookService {
 	
 	protected $config = [
@@ -152,11 +154,14 @@ class GitHubHookService {
 		echo $message . PHP_EOL;
 	}	
 
-	public static function simpleInit($config, $payload, $xHubSignature)
+	public static function simpleInit($config, $payload, $xHubSignature = '', $hooks = [])
 	{
 		$service = new static($config);
 		$response = $service->receive($payload, $xHubSignature);
 		$service->displayLog($response['message']);
+
+		(new GitHubHookCommands($hooks, $this->config['path']))
+			->handle($this->payload);
 	}
 
 }

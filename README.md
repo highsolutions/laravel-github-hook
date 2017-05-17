@@ -45,11 +45,28 @@ and you can specify some essentials settings (in ENV and in config file called `
 | secret            | GitHub webook secret code                                                                 | GITHUB_HOOK_SECRET         | null                                      |
 | hooks.migration   | Artisan command for database migration. Set false to deactivate.                          | GITHUB_HOOK_HOOK_MIGRATION | php artisan migrate --force               |
 | hooks.seed        | Artisan command for database seeding. Set false to deactivate.                            | GITHUB_HOOK_HOOK_SEED      | php artisan db:seed --force               |
-| hooks.refresh     | Artisan command for recreating database (migration and seeding). Set false to deactivate. | GITHUB_HOOK_HOOK_REFRESH   | phpartisan migrate:refresh --seed --force |
+| hooks.refresh     | Artisan command for recreating database (migration and seeding). Set false to deactivate. | GITHUB_HOOK_HOOK_REFRESH   | php artisan migrate:refresh --seed --force |
 | hooks.composer    | Composer update command (and dump-autoload). Set false to deactivate.                     | GITHUB_HOOK_HOOK_COMPOSER  | composer update --no-scripts              |
 | slack.sender      | Name of sender of Slack notification                                                      | GITHUB_HOOK_SLACK_SENDER   | GitHub Hook                               |
 | slack.channel     | Channel where Slack notification will be posted                                           | GITHUB_HOOK_SLACK_CHANNEL  |                                           |
 | slack.webhook_url | Slack webhook url. If empty, notification won't be send.                                  | GITHUB_HOOK_SLACK_URL      |                                           |
+
+You can specify whole configuration in .env file:
+
+```bash
+GITHUB_HOOK_URL=/github/hook/
+GITHUB_HOOK_BRANCH=master
+GITHUB_HOOK_SECRET=
+GITHUB_HOOK_HOOK_MIGRATION="php7 artisan migrate --force"
+GITHUB_HOOK_HOOK_SEED="php7 artisan db:seed --force"
+GITHUB_HOOK_HOOK_REFRESH="php7 artisan migrate:refresh --seed --force"
+GITHUB_HOOK_HOOK_COMPOSER="php7 composer.phar update"
+GITHUB_HOOK_HOOK_SENDER=GitHub
+GITHUB_HOOK_SLACK_CHANNEL=
+GITHUB_HOOK_SLACK_URL=
+```
+
+Remember surround values containg spaces with `"`.
 
 No Laravel version
 ------------------

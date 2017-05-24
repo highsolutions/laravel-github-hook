@@ -124,6 +124,7 @@ Changelog
 Roadmap
 -------
 
+* Asynchronous option
 * Comments
 * Unit tests!
 

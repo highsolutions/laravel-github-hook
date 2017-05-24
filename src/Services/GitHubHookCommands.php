@@ -116,7 +116,7 @@ class GitHubHookCommands
 			if($this->isChanged('migration', 'update') && $this->isHookActive('refresh'))
 				$this->launchHook('refresh');
 			elseif($this->isChanged('migration', 'add') && $this->isHookActive('migration')) {
-				$this->launchHook('migrate');
+				$this->launchHook('migration');
 				$this->launchHook('seed');
 			}
 			else {
@@ -126,7 +126,7 @@ class GitHubHookCommands
 			if($this->isChanged('migration', 'update') && $this->isHookActive('refresh'))
 				$this->launchHook('refresh');
 			elseif($this->isChanged('migration', 'add') && $this->isHookActive('migration')) {
-				$this->launchHook('migrate');
+				$this->launchHook('migration');
 			}
 		}
 	}
@@ -160,6 +160,9 @@ class GitHubHookCommands
 
 	protected function prepareCommand($command)
 	{
+		if(!isset($this->hooks[$command]))
+			return $command;
+		
 		return str_replace(
 			['artisan', 'composer.phar', 'composer update'], 
 			[$this->path .'/artisan', $this->path .'/composer.phar', 'composer update -d '. $this->path], 

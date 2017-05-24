@@ -1,5 +1,8 @@
 <?php
 
+set_time_limit(0);
+ini_set('memory_limit', '512M');
+
 namespace HighSolutions\GitHubHook\Services;
 
 use HighSolutions\GitHubHook\Services\GitHubHookCommands;
@@ -127,7 +130,7 @@ class GitHubHookService {
         $exit = 0;
         $branch = $this->config['branch'];
         $path = $this->config['path'];
-    	$cmd = 'git --git-dir='. escapeshellarg("{$path}/.git") .' --work-tree='. escapeshellarg($path) .' pull origin '. $this->config['branch'] .' --no-edit';
+    	$cmd = 'git --git-dir='. escapeshellarg("{$path}/.git") .' --work-tree='. escapeshellarg($path) .' pull origin '. $this->config['branch'];
 
     	$this->displayLog("Start deploying for branch '{$branch}'.");
 		exec($cmd, $output, $exit);

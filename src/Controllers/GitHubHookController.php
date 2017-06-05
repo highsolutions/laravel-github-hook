@@ -43,6 +43,9 @@ class GitHubHookController
 
 	private function displayResponse($response)
 	{
+		if(isset($response['ping_request']) && $response['ping_request'])
+			return $this->displayLog($response['message']);
+		
 		if($response['success']) {
 			$this->payload = $response['payload'];
 			event(new RequestSucceed($this->payload));

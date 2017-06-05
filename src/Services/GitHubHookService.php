@@ -1,11 +1,11 @@
 <?php
 
-set_time_limit(0);
-ini_set('memory_limit', '512M');
-
 namespace HighSolutions\GitHubHook\Services;
 
 use HighSolutions\GitHubHook\Services\GitHubHookCommands;
+
+set_time_limit(0);
+ini_set('memory_limit', '512M');
 
 class GitHubHookService {
 	
@@ -69,6 +69,7 @@ class GitHubHookService {
 		if($this->isPing())
 			return [
 				'success' => true,
+				'ping_request' => true,
 				'message' => 'Ping correct.'
 			];
 

@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 class GitHubHookController
 {
 	protected $payload = null;
+	protected $isPing = false;
 
 	public function fetch(Request $request)
 	{
@@ -21,7 +22,7 @@ class GitHubHookController
 		
 		$this->displayResponse($response);
 
-		if($response['success'])
+		if($response['success'] && !$this->isPing)
 			$this->manageHooks();
 	}
 
@@ -43,8 +44,10 @@ class GitHubHookController
 
 	private function displayResponse($response)
 	{
-		if(isset($response['ping_request']) && $response['ping_request'])
+		if(isset($response['ping_request']) && $response['ping_request']) {
+			$this->isPing = true;
 			return $this->displayLog($response['message']);
+		}
 		
 		if($response['success']) {
 			$this->payload = $response['payload'];

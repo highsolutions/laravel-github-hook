@@ -10,6 +10,8 @@ class GitHubHookCommands
 		'seed' => false,
 		'refresh' => false,
 		'composer' => false,
+		'cache' => false,
+		'view' => false,
 	];
 	protected $changes;
 	protected $path;
@@ -128,6 +130,14 @@ class GitHubHookCommands
 			elseif($this->isChanged('migration', 'add') && $this->isHookActive('migration')) {
 				$this->launchHook('migration');
 			}
+		}
+
+		if($this->isHookActive('cache')) {
+			$this->launchHook('cache');
+		}
+
+		if($this->isHookActive('view')) {
+			$this->launchHook('view');
 		}
 	}
 

@@ -68,6 +68,8 @@ class GitHubHookController
 			'seed' => config('github-hook.hooks.seed'),
 			'refresh' => config('github-hook.hooks.refresh'),
 			'composer' => config('github-hook.hooks.composer'),
+			'cache' => config('github-hook.hooks.cache'),
+			'view' => config('github-hook.hooks.view'),
 		], base_path());
 		$commands->handle($this->payload);
 

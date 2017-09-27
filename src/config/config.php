@@ -18,7 +18,7 @@ return [
         'migration' => env('GITHUB_HOOK_HOOK_MIGRATION', 'php artisan migrate --force'),
         'seed' => env('GITHUB_HOOK_HOOK_SEED', 'php artisan db:seed --force'),
         'refresh' => env('GITHUB_HOOK_HOOK_REFRESH', 'php artisan migrate:refresh --seed --force'),
-        'composer' => env('GITHUB_HOOK_HOOK_COMPOSER', 'composer update --no-scripts'),
+        'composer' => env('GITHUB_HOOK_HOOK_COMPOSER', 'composer install --no-dev'),
     ],
 
     'slack' => [

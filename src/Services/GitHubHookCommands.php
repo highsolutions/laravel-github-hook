@@ -43,7 +43,7 @@ class GitHubHookCommands
 				'update' => false,
 			],
 			'composer' => [
-				'update' => false,
+				'install' => false,
 			],
 		];
 	}
@@ -75,7 +75,7 @@ class GitHubHookCommands
 			elseif ($this->isSeed($file))
 				$this->changes['seed']['update'] = true;
 			elseif ($this->isComposer($file))
-				$this->changes['composer']['update'] = true;
+				$this->changes['composer']['install'] = true;
 		}
 	}
 
@@ -174,8 +174,8 @@ class GitHubHookCommands
 			return $command;
 		
 		return str_replace(
-			['artisan', 'composer.phar', 'composer update'], 
-			[$this->path .'/artisan', $this->path .'/composer.phar', 'composer update -d '. $this->path], 
+			['artisan', 'composer.phar', 'composer install'], 
+			[$this->path .'/artisan', $this->path .'/composer.phar', 'composer install -d '. $this->path], 
 			$this->hooks[$command]
 		);
 	}

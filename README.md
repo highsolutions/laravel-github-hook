@@ -18,7 +18,8 @@ Add the following line to the `require` section of your Laravel webapp's `compos
 
 Run `composer update` to install the package.
 
-Then, update `config/app.php` by adding an entry for the service provider:
+This package uses Laravel 5.5 Package Auto-Discovery.
+For previous versions of Laravel, you need to update `config/app.php` by adding an entry for the service provider:
 
 ```php
 'providers' => [
@@ -46,7 +47,7 @@ and you can specify some essentials settings (in ENV and in config file called `
 | hooks.migration   | Artisan command for database migration. Set false to deactivate.                          | GITHUB_HOOK_HOOK_MIGRATION | php artisan migrate --force               |
 | hooks.seed        | Artisan command for database seeding. Set false to deactivate.                            | GITHUB_HOOK_HOOK_SEED      | php artisan db:seed --force               |
 | hooks.refresh     | Artisan command for recreating database (migration and seeding). Set false to deactivate. | GITHUB_HOOK_HOOK_REFRESH   | php artisan migrate:refresh --seed --force |
-| hooks.composer    | Composer update command (and dump-autoload). Set false to deactivate.                     | GITHUB_HOOK_HOOK_COMPOSER  | composer update --no-scripts              |
+| hooks.composer    | Composer update command (and dump-autoload). Set false to deactivate.                     | GITHUB_HOOK_HOOK_COMPOSER  | composer install --no-dev                 |
 | hooks.cache       | Clear cache. Set false to deactivate.                                                     | GITHUB_HOOK_HOOK_CACHE     | php artisan cache:clear                   |
 | hooks.view        | Clear compiled views. Set false to deactivate.                                            | GITHUB_HOOK_HOOK_VIEW      | php artisan view:clear                    |
 | slack.sender      | Name of sender of Slack notification                                                      | GITHUB_HOOK_SLACK_SENDER   | GitHub Hook                               |
@@ -62,7 +63,7 @@ GITHUB_HOOK_SECRET=
 GITHUB_HOOK_HOOK_MIGRATION="php artisan migrate --force"
 GITHUB_HOOK_HOOK_SEED="php artisan db:seed --force"
 GITHUB_HOOK_HOOK_REFRESH="php artisan migrate:refresh --seed --force"
-GITHUB_HOOK_HOOK_COMPOSER="php composer.phar update"
+GITHUB_HOOK_HOOK_COMPOSER="php composer.phar install --no-dev"
 GITHUB_HOOK_HOOK_CACHE="php artisan cache:clear"
 GITHUB_HOOK_HOOK_VIEW="php artisan view:clear"
 GITHUB_HOOK_HOOK_SENDER=GitHub
@@ -90,7 +91,7 @@ HighSolutions\GitHubHook\Services\GitHubHookService::simpleInit([
     'branch' => 'master', // branch name
     'path' => '/home/www/', // absolute path to the repo
 ], $_POST['payload'], $_SERVER['x-hub-signature'], [
-    'composer' => 'composer update --no-scripts',
+    'composer' => 'composer install --no-dev',
 ]);
 ```
 
@@ -108,6 +109,10 @@ require_once 'GitHubHookService.php';
 
 Changelog
 ---------
+
+0.4.0
+- Support Package Auto-Discovery
+- `composer install --no-dev` instead of `composer update --no-scripts` as default command for composer hook
 
 0.3.0
 - cache and view clear commands

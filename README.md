@@ -110,6 +110,9 @@ require_once 'GitHubHookService.php';
 Changelog
 ---------
 
+0.4.1
+- Wrong package in Auto-Discovery definition.
+
 0.4.0
 - Support Package Auto-Discovery
 - `composer install --no-dev` instead of `composer update --no-scripts` as default command for composer hook
@@ -146,4 +149,4 @@ Roadmap
 Credits
 -------
 
-This package is developed by [HighSolutions](http://highsolutions.pl), software house from Poland in love in Laravel.
+This package is developed by [HighSolutions](https://highsolutions.org), software house from Poland in love in Laravel.

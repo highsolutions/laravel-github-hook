@@ -23,7 +23,7 @@
         "frameworks": ["Laravel 5.5"],
         "laravel": {
             "providers": [
-                "HighSolutions\\GoogleKeywords\\GoogleKeywordsServiceProvider"
+                "HighSolutions\\GitHubHook\\GitHubHookServiceProvider"
             ]            
         }
     },

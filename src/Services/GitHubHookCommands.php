@@ -6,12 +6,14 @@ class GitHubHookCommands
 {
 
 	protected $hooks = [
+		'before' => false,
 		'migration' => false,
 		'seed' => false,
 		'refresh' => false,
 		'composer' => false,
 		'cache' => false,
 		'view' => false,
+		'after' => false,
 	];
 	protected $changes;
 	protected $path;
@@ -49,7 +51,7 @@ class GitHubHookCommands
 	}
 
 	protected function analyzePayload($payload)
-	{
+	{		
 		foreach($payload->commits as $commit) {
 			$this->checkAddedFiles($commit);
 			$this->checkUpdatedFiles($commit);
@@ -111,6 +113,8 @@ class GitHubHookCommands
 
 	protected function launchHooks()
 	{
+		$this->triggerHooks('before');
+
 		if($this->isChanged('composer') && $this->isHookActive('composer'))
 			$this->launchHook('composer');
 
@@ -139,6 +143,8 @@ class GitHubHookCommands
 		if($this->isHookActive('view')) {
 			$this->launchHook('view');
 		}
+
+		$this->triggerHooks('after');
 	}
 
 	protected function isChanged($key, $operation = null)
@@ -183,6 +189,14 @@ class GitHubHookCommands
 	protected function displayLog($message)
 	{
 		echo $message . PHP_EOL;
+	}
+
+	protected function triggerHooks($type)
+	{
+		collect(explode('###', array_get($this->hooks, $type)))
+			->each(function ($command) {
+				$this->launchHook($command);
+			});
 	}
 
 }

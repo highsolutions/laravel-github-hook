@@ -15,10 +15,14 @@ return [
     'secret' => env('GITHUB_HOOK_SECRET', null),
 
     'hooks' => [
+        'before' => env('GITHUB_HOOK_HOOK_BEFORE', ''),
         'migration' => env('GITHUB_HOOK_HOOK_MIGRATION', 'php artisan migrate --force'),
         'seed' => env('GITHUB_HOOK_HOOK_SEED', 'php artisan db:seed --force'),
         'refresh' => env('GITHUB_HOOK_HOOK_REFRESH', 'php artisan migrate:refresh --seed --force'),
         'composer' => env('GITHUB_HOOK_HOOK_COMPOSER', 'composer install --no-dev'),
+        'cache' => env('GITHUB_HOOK_HOOK_SEED', 'php artisan cache:clear'),
+        'view' => env('GITHUB_HOOK_HOOK_SEED', 'php artisan view:clear'),
+        'after' => env('GITHUB_HOOK_HOOK_AFTER', ''),
     ],
 
     'slack' => [

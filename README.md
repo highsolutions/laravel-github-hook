@@ -44,12 +44,14 @@ and you can specify some essentials settings (in ENV and in config file called `
 | url               | URL for webhook from GitHub to your                                                       | GITHUB_HOOK_URL            | /github/hook/                             |
 | branch            | Pulled repository branch on server                                                        | GITHUB_HOOK_BRANCH         | master                                    |
 | secret            | GitHub webook secret code                                                                 | GITHUB_HOOK_SECRET         | null                                      |
+| hooks.before      | Array of commands to execute before composer actions (### is a separator).                | GITHUB_HOOK_HOOK_BEFORE    | [] |
+| hooks.composer    | Composer update command (and dump-autoload). Set false to deactivate.                     | GITHUB_HOOK_HOOK_COMPOSER  | composer install --no-dev                 |
 | hooks.migration   | Artisan command for database migration. Set false to deactivate.                          | GITHUB_HOOK_HOOK_MIGRATION | php artisan migrate --force               |
 | hooks.seed        | Artisan command for database seeding. Set false to deactivate.                            | GITHUB_HOOK_HOOK_SEED      | php artisan db:seed --force               |
 | hooks.refresh     | Artisan command for recreating database (migration and seeding). Set false to deactivate. | GITHUB_HOOK_HOOK_REFRESH   | php artisan migrate:refresh --seed --force |
-| hooks.composer    | Composer update command (and dump-autoload). Set false to deactivate.                     | GITHUB_HOOK_HOOK_COMPOSER  | composer install --no-dev                 |
 | hooks.cache       | Clear cache. Set false to deactivate.                                                     | GITHUB_HOOK_HOOK_CACHE     | php artisan cache:clear                   |
 | hooks.view        | Clear compiled views. Set false to deactivate.                                            | GITHUB_HOOK_HOOK_VIEW      | php artisan view:clear                    |
+| hooks.after       | Array of commands to execute after rest of hooks (### is a separator).				    | GITHUB_HOOK_HOOK_AFTER    | [] |
 | slack.sender      | Name of sender of Slack notification                                                      | GITHUB_HOOK_SLACK_SENDER   | GitHub Hook                               |
 | slack.channel     | Channel where Slack notification will be posted                                           | GITHUB_HOOK_SLACK_CHANNEL  |                                           |
 | slack.webhook_url | Slack webhook url. If empty, notification won't be send.                                  | GITHUB_HOOK_SLACK_URL      |                                           |
@@ -60,12 +62,14 @@ You can specify whole configuration in .env file:
 GITHUB_HOOK_URL=/github/hook/
 GITHUB_HOOK_BRANCH=master
 GITHUB_HOOK_SECRET=
+GIHUB_HOOK_BEFORE="php artisan help###php artisan help"
 GITHUB_HOOK_HOOK_MIGRATION="php artisan migrate --force"
 GITHUB_HOOK_HOOK_SEED="php artisan db:seed --force"
 GITHUB_HOOK_HOOK_REFRESH="php artisan migrate:refresh --seed --force"
 GITHUB_HOOK_HOOK_COMPOSER="php composer.phar install --no-dev"
 GITHUB_HOOK_HOOK_CACHE="php artisan cache:clear"
 GITHUB_HOOK_HOOK_VIEW="php artisan view:clear"
+GIHUB_HOOK_AFTER="php artisan help###php artisan optimize"
 GITHUB_HOOK_HOOK_SENDER=GitHub
 GITHUB_HOOK_SLACK_CHANNEL=
 GITHUB_HOOK_SLACK_URL=
@@ -109,6 +113,9 @@ require_once 'GitHubHookService.php';
 
 Changelog
 ---------
+
+0.5.0
+- Add before and after hooks
 
 0.4.1
 - Wrong package in Auto-Discovery definition.

@@ -64,12 +64,14 @@ class GitHubHookController
         event(new BeforeHooks());
 
 		$commands = new GitHubHookCommands([
+			'before' => config('github-hook.hooks.before'),
 			'migration' => config('github-hook.hooks.migration'),
 			'seed' => config('github-hook.hooks.seed'),
 			'refresh' => config('github-hook.hooks.refresh'),
 			'composer' => config('github-hook.hooks.composer'),
 			'cache' => config('github-hook.hooks.cache'),
 			'view' => config('github-hook.hooks.view'),
+			'after' => config('github-hook.hooks.after'),
 		], base_path());
 		$commands->handle($this->payload);
 

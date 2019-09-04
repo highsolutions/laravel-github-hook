@@ -114,8 +114,11 @@ require_once 'GitHubHookService.php';
 Changelog
 ---------
 
-0.6.0
+0.7.0
 - Support Laravel 6.0
+
+0.6.0
+- Support Laravel 5.8
 
 0.5.0
 - Add before and after hooks

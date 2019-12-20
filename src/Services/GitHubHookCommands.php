@@ -2,6 +2,8 @@
 
 namespace HighSolutions\GitHubHook\Services;
 
+use Illuminate\Support\Arr;
+
 class GitHubHookCommands
 {
 
@@ -193,7 +195,7 @@ class GitHubHookCommands
 
 	protected function triggerHooks($type)
 	{
-		collect(explode('###', array_get($this->hooks, $type)))
+		collect(explode('###', Arr::get($this->hooks, $type)))
 			->each(function ($command) {
 				$this->launchHook($command);
 			});

@@ -49,7 +49,7 @@ class SlackNotification extends Notification
                 	'Commit' => $notifiable->event->getCommitName(),
                 	'SHA' => $notifiable->event->getCommitSHA(),
                 	'Author' => $notifiable->event->getSender(),
-                	'Server' => env('APP_URL') .' => '. env('APP_ENV'),
+                	'Server' => config('app.url') .' => '. config('app.env'),
                 ])
                 ->title('GitHubHook failed:'. PHP_EOL.  $notifiable->event->message);
             });

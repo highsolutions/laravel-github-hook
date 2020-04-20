@@ -115,10 +115,13 @@ class GitHubHookCommands
 
 	protected function launchHooks()
 	{
-		$this->triggerHooks('before');
+		if($this->isHookActive('before')) {
+			$this->triggerHooks('before');
+		}
 
-		if($this->isChanged('composer') && $this->isHookActive('composer'))
+		if($this->isChanged('composer') && $this->isHookActive('composer')) {
 			$this->launchHook('composer');
+		}
 
 		if($this->isChanged('seed') && $this->isHookActive('seed')) {
 			if($this->isChanged('migration', 'update') && $this->isHookActive('refresh'))
@@ -146,7 +149,9 @@ class GitHubHookCommands
 			$this->launchHook('view');
 		}
 
-		$this->triggerHooks('after');
+		if($this->isHookActive('after')) {
+			$this->triggerHooks('after');
+		}
 	}
 
 	protected function isChanged($key, $operation = null)

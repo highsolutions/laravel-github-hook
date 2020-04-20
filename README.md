@@ -114,6 +114,9 @@ require_once 'GitHubHookService.php';
 Changelog
 ---------
 
+0.8.0
+- Support Laravel 7.0
+
 0.7.0
 - Support Laravel 6.0
 

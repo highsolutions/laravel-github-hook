@@ -114,6 +114,9 @@ require_once 'GitHubHookService.php';
 Changelog
 ---------
 
+0.9.0
+- Support Laravel 8.0
+
 0.8.1
 - Add slack-notification-channel dependency
 

@@ -114,6 +114,9 @@ require_once 'GitHubHookService.php';
 Changelog
 ---------
 
+0.11.0
+- Support Laravel 9.0, 10, and 11.x
+
 0.9.0
 - Support Laravel 8.0
 

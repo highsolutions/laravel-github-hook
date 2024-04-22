@@ -21,7 +21,7 @@
     },
     "extra": {
         "component": "package",
-        "frameworks": ["Laravel 5.6", "Laravel 5.7", "Laravel 5.8", "Laravel 6.x", "Laravel 7.x", "Laravel 8.x", "Laravel 9.x", "Laravel 10.x", , "Laravel 11.x"],
+        "frameworks": ["Laravel 5.6", "Laravel 5.7", "Laravel 5.8", "Laravel 6.x", "Laravel 7.x", "Laravel 8.x", "Laravel 9.x", "Laravel 10.x", "Laravel 11.x"],
         "laravel": {
             "providers": [
                 "HighSolutions\\GitHubHook\\GitHubHookServiceProvider"
